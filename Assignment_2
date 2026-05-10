@@ -1,0 +1,275 @@
+1. Structure for Student Details.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student 
+{
+    string name;
+    int rollNo;
+    string degree;
+    string hostel;
+    float cgpa;
+
+    void addDetails() 
+    {
+        cout<<"Enter Name: ";
+        cin>>name;
+        cout<<"Enter Roll No: ";
+        cin>>rollNo;
+        cout<<"Enter Degree: ";
+        cin>>degree;
+        cout<<"Enter Hostel: ";
+        cin>>hostel;
+        cout<<"Enter CGPA: ";
+        cin>>cgpa;
+    }
+
+    void updateDetails() 
+    {
+        cout<<"Enter new Name: ";
+        cin>>name;
+        cout<<"Enter new Degree: ";
+        cin>>degree;
+    }
+
+    void updateCGPA() 
+    {
+        cout<<"Enter new CGPA: ";
+        cin> cgpa;
+    }
+
+    void updateHostel() 
+    {
+        cout<<"Enter new Hostel: ";
+        cin>>hostel;
+    }
+
+    void displayDetails() 
+    {
+        cout<<"\nStudent Details\n";
+        cout<<"Name: "<<name<<endl;
+        cout<<"Roll No: "<<rollNo<<endl;
+        cout<<"Degree: "<<degree<endl;
+        cout<<"Hostel: "<<hostel<<endl;
+        cout<<"CGPA: "<<cgpa<<endl;
+    }
+};
+
+int main() 
+{
+    Student s;
+    s.addDetails();
+    s.displayDetails();
+    s.updateDetails();
+    s.updateCGPA();
+    s.updateHostel();
+    s.displayDetails();
+    return 0;
+}
+
+2. Difference Between Public and Private in Question 1 Using Class.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student 
+{
+private:
+    string name;
+    int rollNo;
+    float cgpa;
+
+public:
+    string degree;
+    string hostel;
+
+    void addDetails() 
+    {
+        cout<<"Enter Name: ";
+        cin>>name;
+        cout<<"Enter Roll No: ";
+        cin>>rollNo;
+        cout<<"Enter CGPA: ";
+        cin>>cgpa;
+    }
+
+    void displayDetails() 
+    {
+        cout<<"\nName: " << name;
+        cout<<"\nRoll No: "<<rollNo;
+        cout<<"\nCGPA: "<<cgpa;
+    }
+};
+
+int main() 
+{
+    Student s;
+    s.addDetails();
+    s.displayDetails();
+    return 0;
+}
+
+3. Calling Private Member Function Inside Public Function.
+
+#include <iostream>
+using namespace std;
+
+class Demo 
+    {
+private:
+    void privateFun() 
+    {
+        cout<<"This is a private function\n";
+    }
+
+public:
+    void publicFun() 
+    {
+        privateFun(); 
+    }
+};
+
+int main() 
+{
+    Demo d;
+    d.publicFun();
+    return 0;
+}
+
+4. Rectangle Class.
+
+#include <iostream>
+using namespace std;
+
+class Rectangle 
+{
+    int width, height;
+
+public:
+    void getdata() 
+    {
+        cout<<"Enter width and height: ";
+        cin>>width>>height;
+    }
+
+    void calculatearea() 
+    {
+        cout<<"Area = "<<width*height;
+    }
+};
+
+int main() 
+{
+    Rectangle r;
+    r.getdata();
+    r.calculatearea();
+    return 0;
+}
+
+5. Pass and Return Objects in Complex Class.
+
+#include <iostream>
+using namespace std;
+
+class Complex 
+{
+    float real, imag;
+
+public:
+    void setComplex(float r,float i) 
+    {
+        real = r;
+        imag = i;
+    }
+
+    void displayComplex() 
+    {
+        cout<<real<<" + "<<imag<<"i\n";
+    }
+
+    Complex add(Complex C) 
+    {
+        Complex x;
+        x.real = real + C.real;
+        x.imag = imag + C.imag;
+        return x;
+    }
+};
+
+int main() 
+{
+    Complex c1, c2, c3;
+
+    c1.setComplex(2.5, 3.5);
+    c2.setComplex(1.5, 4.5);
+
+    c3=c1.add(c2);
+
+    cout<<"Sum = ";
+    c3.displayComplex();
+    return 0;
+}
+
+6. Implementing Scope Resolution Operator (::).
+
+#include <iostream>
+using namespace std;
+
+int x=10;   
+
+class Scope 
+{
+public:
+    static int y;
+    void show();
+};
+
+int Scope::y = 20;
+
+void Scope::show() 
+{
+    int x=5;
+    cout<<"Local x = "<<x<<endl;
+    cout<<"Global x = "<<::x<<endl;
+    cout<<"Static y = "<<Scope::y<<endl;
+}
+
+int main() 
+{
+    Scope S;
+    S.show();
+    return 0;
+}
+
+7. Namespace Implementation.
+
+#include <iostream>
+using namespace std;
+
+namespace A 
+{
+    int x = 10;
+    void show() 
+    {
+        cout<<"Namespace A, x = "<<x<<endl;
+    }
+}
+
+namespace B 
+{
+    int x = 20;
+    void show() 
+    {
+        cout<<"Namespace B, x = "<<x<<endl;
+    }
+}
+
+int main() 
+{
+    A::show();
+    B::show();
+    return 0;
+}
