@@ -1,0 +1,415 @@
+1. Basic Inheritance (Base + Derived).
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    void showBase() {
+        cout << "This is Base class" << endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    void showDerived() {
+        cout << "This is Derived class" << endl;
+    }
+};
+
+int main() {
+    Base b;
+    Derived d;
+
+    b.showBase();
+    d.showBase();
+    d.showDerived();
+
+    return 0;
+}
+
+2. Protected Access Specifier.
+
+#include <iostream>
+using namespace std;
+
+class Base {
+protected:
+    int x;
+};
+
+class Derived : public Base {
+public:
+    void setValue(int a) {
+        x = a;
+    }
+    void display() {
+        cout << "Value of x = " << x << endl;
+    }
+};
+
+int main() {
+    Derived d;
+    d.setValue(10);
+    d.display();
+
+    return 0;
+}
+
+3. Public vs Protected vs Private Inheritance.
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    int a = 10;
+};
+
+class PublicDerived : public Base {
+};
+
+class ProtectedDerived : protected Base {
+public:
+    void show() {
+        cout << "Protected Inheritance: " << a << endl;
+    }
+};
+
+class PrivateDerived : private Base {
+public:
+    void show() {
+        cout << "Private Inheritance: " << a << endl;
+    }
+};
+
+int main() {
+    PublicDerived p;
+    cout << "Public Inheritance: " << p.a << endl;
+
+    ProtectedDerived pr;
+    pr.show();
+
+    PrivateDerived pv;
+    pv.show();
+
+    return 0;
+}
+
+4. Types of Inheritance.
+(a) Single Inheritance.
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void showA() { cout << "Class A" << endl; }
+};
+
+class B : public A {
+};
+
+int main() {
+    B obj;
+    obj.showA();
+}
+
+(b) Multiple Inheritance.
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void showA() { cout << "Class A" << endl; }
+};
+
+class B {
+public:
+    void showB() { cout << "Class B" << endl; }
+};
+
+class C : public A, public B {
+};
+
+int main() {
+    C obj;
+    obj.showA();
+    obj.showB();
+}
+
+(c) Multilevel Inheritance.
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void showA() { cout << "Class A" << endl; }
+};
+
+class B : public A {
+};
+
+class C : public B {
+};
+
+int main() {
+    C obj;
+    obj.showA();
+}
+
+5. Constructors & Destructors in Inheritance.
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    Base() { cout << "Base Constructor\n"; }
+    ~Base() { cout << "Base Destructor\n"; }
+};
+
+class Derived : public Base {
+public:
+    Derived() { cout << "Derived Constructor\n"; }
+    ~Derived() { cout << "Derived Destructor\n"; }
+};
+
+int main() {
+    Derived d;
+    return 0;
+}
+
+6. Book & Textbook (Single Inheritance).
+
+#include <iostream>
+using namespace std;
+
+class Book {
+protected:
+    string title, author;
+    float price;
+
+public:
+    void setBook(string t, string a, float p) {
+        title = t;
+        author = a;
+        price = p;
+    }
+
+    void displayBook() {
+        cout << "Title: " << title << "\nAuthor: " << author << "\nPrice: " << price << endl;
+    }
+};
+
+class Textbook : public Book {
+    string subject;
+
+public:
+    void setTextbook(string t, string a, float p, string s) {
+        setBook(t, a, p);
+        subject = s;
+    }
+
+    void displayTextbook() {
+        displayBook();
+        cout << "Subject: " << subject << endl;
+    }
+};
+
+int main() {
+    Textbook t;
+    t.setTextbook("Maths", "Author A", 500, "Algebra");
+    t.displayTextbook();
+
+    return 0;
+}
+
+7. Car Dashboard (Multiple Inheritance).
+
+#include <iostream>
+using namespace std;
+
+class Speedometer {
+protected:
+    int speed;
+public:
+    void setSpeed(int s) { speed = s; }
+};
+
+class FuelGauge {
+protected:
+    int fuel;
+public:
+    void setFuel(int f) { fuel = f; }
+};
+
+class Thermometer {
+protected:
+    int temp;
+public:
+    void setTemp(int t) { temp = t; }
+};
+
+class CarDashboard : public Speedometer, public FuelGauge, public Thermometer {
+public:
+    void display() {
+        cout << "Speed: " << speed << endl;
+        cout << "Fuel: " << fuel << endl;
+        cout << "Temperature: " << temp << endl;
+    }
+};
+
+int main() {
+    CarDashboard c;
+    c.setSpeed(80);
+    c.setFuel(50);
+    c.setTemp(90);
+    c.display();
+
+    return 0;
+}
+
+8. Library System (Hierarchical Inheritance).
+
+#include <iostream>
+using namespace std;
+
+class LibraryUser {
+protected:
+    string name;
+    int id;
+
+public:
+    void setUser(string n, int i) {
+        name = n;
+        id = i;
+    }
+};
+
+class Student : public LibraryUser {
+    int grade;
+public:
+    void setStudent(string n, int i, int g) {
+        setUser(n, i);
+        grade = g;
+    }
+    void display() {
+        cout << "Student: " << name << ", ID: " << id << ", Grade: " << grade << endl;
+    }
+};
+
+class Teacher : public LibraryUser {
+    string dept;
+public:
+    void setTeacher(string n, int i, string d) {
+        setUser(n, i);
+        dept = d;
+    }
+    void display() {
+        cout << "Teacher: " << name << ", ID: " << id << ", Dept: " << dept << endl;
+    }
+};
+
+int main() {
+    Student s;
+    Teacher t;
+
+    s.setStudent("Arsh", 1, 12);
+    t.setTeacher("Sir", 2, "CSE");
+
+    s.display();
+    t.display();
+
+    return 0;
+}
+
+9. Vehicle System (Multilevel Inheritance)
+
+#include <iostream>
+using namespace std;
+
+class Vehicle {
+protected:
+    string make, model;
+    int year;
+};
+
+class Truck : public Vehicle {
+protected:
+    int load_capacity;
+};
+
+class RefrigeratedTruck : public Truck {
+    int temperature;
+public:
+    void setData() {
+        make = "Tata";
+        model = "X";
+        year = 2022;
+        load_capacity = 1000;
+        temperature = -5;
+    }
+
+    void display() {
+        cout << make << " " << model << " " << year << endl;
+        cout << "Load: " << load_capacity << endl;
+        cout << "Temp: " << temperature << endl;
+    }
+};
+
+int main() {
+    RefrigeratedTruck r;
+    r.setData();
+    r.display();
+
+    return 0;
+}
+
+10. Hybrid Inheritance (Person, Staff, Student, TA).
+
+#include <iostream>
+using namespace std;
+
+class Person {
+protected:
+    string name;
+public:
+    void setName(string n) { name = n; }
+};
+
+class Staff : public Person {
+protected:
+    int emp_id;
+public:
+    void setStaff(int id) { emp_id = id; }
+};
+
+class Student : public Person {
+protected:
+    int student_id;
+public:
+    void setStudent(int id) { student_id = id; }
+};
+
+class TeachingAssistant : public Staff, public Student {
+public:
+    void display() {
+        cout << "Name: " << Staff::name << endl;
+        cout << "Emp ID: " << emp_id << endl;
+        cout << "Student ID: " << student_id << endl;
+    }
+};
+
+int main() {
+    TeachingAssistant ta;
+    ta.Staff::setName("Arsh");
+    ta.setStaff(101);
+    ta.setStudent(202);
+
+    ta.display();
+
+    return 0;
+}
