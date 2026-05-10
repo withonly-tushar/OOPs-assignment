@@ -1,0 +1,278 @@
+1. Pointer to object + this pointer + . and ->.
+
+#include <iostream>
+using namespace std;
+
+class Pointers 
+{
+public:
+    int x;
+
+    void setData(int x) 
+    {
+        this->x = x;   
+    }
+
+    void display() 
+    {
+        cout<<"Value: "<<x<<endl;
+    }
+};
+
+int main()  
+{
+    Pointers obj;
+    Pointers *ptr;
+
+    ptr=&obj;
+
+    obj.setData(10);    
+    obj.display();
+
+    ptr->setData(20);   
+    ptr->display();
+
+    return 0;
+}
+
+2. Swap private values using friend function.
+
+#include <iostream>
+using namespace std;
+
+class A 
+{
+private:
+    int x;
+public:
+    A(int a) { x = a; }
+    friend void swap(A &, B &);
+    void show() 
+    { cout<<"A: "<<x<<endl; }
+};
+
+class B 
+{
+private:
+    int y;
+public:
+    B(int b) { y = b; }
+    friend void swap(A &, B &);
+    void show() 
+    { cout<<"B: "<<y<<endl; }
+};
+
+void swap(A &obj1, B &obj2) 
+{
+    int temp = obj1.x;
+    obj1.x = obj2.y;
+    obj2.y = temp;
+}
+
+int main() 
+{
+    A obj1(10);
+    B obj2(20);
+
+    swap(obj1, obj2);
+
+    obj1.show();
+    obj2.show();
+
+    return 0;
+}
+
+3. Add objects of two different classes using friend function.
+
+#include <iostream>
+using namespace std;
+
+class A 
+{
+private:
+    int x;
+public:
+    A(int a) { x = a; }
+    friend int add(A, B);
+};
+
+class B 
+{
+private:
+    int y;
+public:
+    B(int b) { y = b; }
+    friend int add(A, B);
+};
+
+int add(A obj1, B obj2) 
+{
+    return obj1.x + obj2.y;
+}
+
+int main() 
+{
+    A obj1(5);
+    B obj2(10);
+
+    cout<<"Sum = "<<add(obj1, obj2);
+
+    return 0;
+}
+
+4. Friend class demonstration.
+
+#include <iostream>
+using namespace std;
+
+class A 
+{
+private:
+    int x;
+public:
+    A() { x = 100; }
+    friend class B;
+};
+
+class B 
+{
+public:
+    void show(A obj) 
+    {
+        cout<<"Value of x: "<<obj.x<<endl;
+    }
+};
+
+int main() 
+{
+    A obj1;
+    B obj2;
+
+    obj2.show(obj1);
+
+    return 0;
+}
+
+5. Area of multiple rectangles using array of objects.
+
+#include <iostream>
+using namespace std;
+
+class Rectangle 
+{
+private:
+    int length, breadth;
+public:
+    void setData(int l, int b) 
+    {
+        length = l;
+        breadth = b;
+    }
+
+    int area() 
+    {
+        return length * breadth;
+    }
+};
+
+int main() 
+{
+    Rectangle rect[3];
+
+    rect[0].setData(2, 3);
+    rect[1].setData(4, 5);
+    rect[2].setData(6, 7);
+
+    for(int i = 0; i < 3; i++) 
+    {
+        cout<<"Area of rectangle "<<i+1<<" = "<<rect[i].area()<<endl;
+    }
+
+    return 0;
+}
+
+6. Inline function for cube.
+
+#include <iostream>
+using namespace std;
+
+inline int cube(int x) 
+{
+    return x * x * x;
+}
+
+int main() 
+{
+    int n = 3;
+    cout<<"Cube = "<<cube(n);
+
+    return 0;
+}
+
+7(a). Pass object by value and return object.
+
+#include <iostream>
+using namespace std;
+
+class Demo 
+{
+public:
+    int x;
+
+    Demo(int a) { x = a; }
+
+    Demo add(Demo obj) 
+    {
+        return Demo(x + obj.x);
+    }
+
+    void show() 
+    {
+        cout<<"Value: "<<x<<endl;
+    }
+};
+
+int main() 
+{
+    Demo d1(10), d2(20), d3(0);
+
+    d3 = d1.add(d2);
+
+    d3.show();
+
+    return 0;
+}
+
+7(b). Pass object by address (pointer) and return object.
+
+#include <iostream>
+using namespace std;
+
+class Demo 
+{
+public:
+    int x;
+
+    Demo(int a) { x = a; }
+
+    Demo add(Demo *obj) 
+    {
+        return Demo(x + obj->x);
+    }
+
+    void show() 
+    {
+        cout<<"Value: "<<x<<endl;
+    }
+};
+
+int main() 
+{
+    Demo d1(10), d2(20), d3(0);
+
+    d3 = d1.add(&d2);
+
+    d3.show();
+
+    return 0;
+}
