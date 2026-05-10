@@ -1,0 +1,163 @@
+1. Write numbers 1 to 200 in NUM.TXT.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ofstream file("NUM.TXT");
+
+    for (int i = 1; i <= 200; i++) {
+        file << i << " ";
+    }
+
+    file.close();
+    cout << "Numbers written to file successfully.\n";
+    return 0;
+}
+
+2. Count alphabets in NOTES.TXT (User-defined function).
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void countAlphabets() {
+    ifstream file("NOTES.TXT");
+    char ch;
+    int count = 0;
+
+    while (file.get(ch)) {
+        if (isalpha(ch))
+            count++;
+    }
+
+    cout << "Number of alphabets: " << count << endl;
+    file.close();
+}
+
+int main() {
+    countAlphabets();
+    return 0;
+}
+
+3. Copy contents of one file to another.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream src("source.txt");
+    ofstream dest("destination.txt");
+
+    char ch;
+    while (src.get(ch)) {
+        dest.put(ch);
+    }
+
+    src.close();
+    dest.close();
+
+    cout << "File copied successfully.\n";
+    return 0;
+}
+
+4. String I/O, length, file storage & retrieval.
+
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+int main() {
+    char str[100];
+
+    cout << "Enter a string: ";
+    cin.getline(str, 100);
+
+    cout << "Length: " << strlen(str) << endl;
+
+    ofstream file("string.txt");
+    file << str;
+    file.close();
+
+    ifstream infile("string.txt");
+    char ch;
+    cout << "Stored string: ";
+    while (infile.get(ch)) {
+        cout << ch;
+    }
+
+    infile.close();
+    return 0;
+}
+
+5. File operations (seekg, seekp, tellg, etc.).
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream file("AZ.txt", ios::out | ios::in);
+
+    // Write A-Z
+    for (char ch = 'A'; ch <= 'Z'; ch++) {
+        file.put(ch);
+    }
+
+    // Read 10th character
+    file.seekg(9);
+    char ch;
+    file.get(ch);
+    cout << "10th character: " << ch << endl;
+
+    // Overwrite 5th character
+    file.seekp(4);
+    file.put('X');
+
+    // File size
+    file.seekg(0, ios::end);
+    cout << "File size: " << file.tellg() << endl;
+
+    // Last character
+    file.seekg(-1, ios::end);
+    file.get(ch);
+    cout << "Last character: " << ch << endl;
+
+    file.close();
+    return 0;
+}
+
+6. Hello World + tellp + replace using random access.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream file("hello.txt", ios::out | ios::in);
+
+    string text = "Hello World";
+
+    // Write and show tellp()
+    for (int i = 0; i < text.length(); i++) {
+        file.put(text[i]);
+        cout << "Position after writing '" << text[i] << "': " << file.tellp() << endl;
+    }
+
+    // Replace "World" with "C++"
+    file.seekp(6);
+    file << "C++  ";  // extra spaces to overwrite properly
+
+    file.seekg(0);
+    char ch;
+    cout << "\nModified content:\n";
+    while (file.get(ch)) {
+        cout << ch;
+    }
+
+    file.close();
+    return 0;
+}
